@@ -1,0 +1,59 @@
+body {
+    font-family: sans-serif
+}
+
+#gameStatus {
+    text-align: center
+}
+
+.board {
+    margin: auto;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap
+}
+
+.emptyBox {
+    height: 104px;
+    width: 104px;
+    border: solid 1px black;
+    background-color: white
+}
+
+.xBox {
+    font-size: 100px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 104px;
+    height: 104px;
+    width: 104px;
+    border: solid 1px black;
+    background-color: red;
+}
+
+.oBox {
+    font-size: 100px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 104px;     
+    height: 104px;
+    width: 104px;
+    border: solid 1px black;
+    background-color: blue
+}
+
+h1 {
+    padding-top: 20px;
+    margin: auto;
+    text-align: center
+}
+
+#buttonLocation {
+    padding-top: 10px;
+    text-align: center
+}
