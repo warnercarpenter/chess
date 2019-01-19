@@ -37,7 +37,7 @@ let turnsTaken = 0
 initTurn = ["X's turn", "O's turn"]
 gameStatus.innerHTML = initTurn[turn]
 
-//Create box elements and set up function for making moods
+//Create box elements and set up function for making moves
 for (let index = 0; index < 9; index++) {
     boxes[index].status = "empty"
     buttonBox = document.createElement("div")
