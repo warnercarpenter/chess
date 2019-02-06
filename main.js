@@ -99,6 +99,7 @@ board.addEventListener("click", function() {
     if (columnToGoIn === undefined) return;
     let boxToGoIn = document.getElementById(`box ${columnToGoIn[columnToGoIn.length - 1]}`)
     let boxToGoInID = boxToGoIn.id.split(" ")[1]
+    movesMade.push(boxToGoInID)
     //Listen for clicks and change to corresponding class depending on player turn
     if (turn === 0) {
         boxToGoIn.setAttribute("class", "redBox")

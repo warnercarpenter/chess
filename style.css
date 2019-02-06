@@ -61,3 +61,7 @@ h1 {
     padding-top: 10px;
     text-align: center
 }
+
+.lowOpacity {
+    opacity: 0.3
+}
