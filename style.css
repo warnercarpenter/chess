@@ -15,8 +15,8 @@ body {
 .board {
     background-color: #05233C;
     margin: auto;
-    width: 224px;
-    height: 192px;
+    width: 364px;
+    height: 312px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -26,15 +26,15 @@ body {
 }
 
 .emptyBox {
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     border: solid 1px #153A58;
     box-shadow: 1px 1px 2px #2B5171;
 }
 
 .redBox {
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     border: solid 1px #153A58;
     background-color: #EC0033;
     box-shadow: 1px 1px 2px #2B5171;
@@ -42,8 +42,8 @@ body {
 }
 
 .yellowBox {
-    height: 30px;
-    width: 30px;
+    height: 50px;
+    width: 50px;
     border: solid 1px #153A58;
     background-color: #FFEB00;
     box-shadow: 1px 1px 2px #2B5171;
