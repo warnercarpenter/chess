@@ -1,4 +1,10 @@
+.hide {
+    display: none; 
+}
+
 body {
+    color: #7491A9;
+    background-color: #2B5171;
     font-family: sans-serif
 }
 
@@ -7,50 +13,48 @@ body {
 }
 
 .board {
+    background-color: #05233C;
     margin: auto;
-    width: 320px;
-    height: 320px;
+    width: 224px;
+    height: 192px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    border: solid 10px #153A58;
+    box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .emptyBox {
-    height: 104px;
-    width: 104px;
-    border: solid 1px black;
-    background-color: white
+    height: 30px;
+    width: 30px;
+    border: solid 1px #153A58;
+    box-shadow: 1px 1px 2px #2B5171;
 }
 
-.xBox {
-    font-size: 100px;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 104px;
-    height: 104px;
-    width: 104px;
-    border: solid 1px black;
-    background-color: red;
+.redBox {
+    height: 30px;
+    width: 30px;
+    border: solid 1px #153A58;
+    background-color: #EC0033;
+    box-shadow: 1px 1px 2px #2B5171;
+    border-radius: 50%;
 }
 
-.oBox {
-    font-size: 100px;
-    color: white;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 104px;     
-    height: 104px;
-    width: 104px;
-    border: solid 1px black;
-    background-color: blue
+.yellowBox {
+    height: 30px;
+    width: 30px;
+    border: solid 1px #153A58;
+    background-color: #FFEB00;
+    box-shadow: 1px 1px 2px #2B5171;
+    border-radius: 50%;
 }
 
 h1 {
     padding-top: 20px;
     margin: auto;
-    text-align: center
+    text-align: center;
+    color: whitesmoke
 }
 
 #buttonLocation {
