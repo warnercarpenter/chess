@@ -1,25 +1,35 @@
-<!doctype html> 
+<!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
-  <title>Connect 4</title>
+  <title>Chess</title>
   <link rel="stylesheet" href="./style.css">
 
 </head>
 
 <body>
+  <div>
+    <h1>Chess</h1>
 
-  <h1>Connect 4</h1>
+    <p id="gameStatus"></p>
 
-  <p id="gameStatus"></p>
+    <div class="board" id="board"></div>
+    <div class="capturedContainer">
+      <div class="capturedList" id="capturedForWhite"><h4>Captured pieces for white:</h4></div>
+      <div class="capturedList" id="capturedForBlack"><h4>Captured pieces for black:</h4></div>
+    </div>
 
-  <div class="board" id="board"></div>
+    <h1 id="message"></h1>
 
-  <h1 id="message"></h1>
+    <div id="buttonLocation"></div>
+  </div>
 
-  <div id="buttonLocation"></div>
-
+  <script src="move_pieces.js"></script>
+  <script src="get_available_moves.js"></script>
+  <script src="./data.js"></script>
   <script src="./checkwin.js"></script>
   <script src="./main.js"></script>
 </body>
+
 </html>

@@ -1,11 +1,16 @@
 .hide {
-    display: none; 
+    display: none;
 }
 
 body {
-    color: #7491A9;
-    background-color: #2B5171;
-    font-family: sans-serif
+    color: #e6b790;
+    background-color: #eef0e9;
+    font-family: sans-serif;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    height: 100%;
+     width: 100%;
 }
 
 #gameStatus {
@@ -13,48 +18,65 @@ body {
 }
 
 .board {
-    background-color: #05233C;
+    user-select: none;
+    background-color: black;
     margin: auto;
-    width: 364px;
-    height: 312px;
+    width: 416px;
+    height: 416px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     flex-wrap: wrap;
-    border: solid 10px #153A58;
+    border: solid 10px #503434;
     box-shadow: 1px 2px 6px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px
 }
 
-.emptyBox {
-    height: 50px;
-    width: 50px;
-    border: solid 1px #153A58;
-    box-shadow: 1px 1px 2px #2B5171;
+.capturedContainer {
+    text-align: center;
+    margin: auto;
+    width: 416px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
 }
 
-.redBox {
-    height: 50px;
-    width: 50px;
-    border: solid 1px #153A58;
-    background-color: #EC0033;
-    box-shadow: 1px 1px 2px #2B5171;
-    border-radius: 50%;
+.capturedList {
+    width: 180px;
+    padding-left: 5px;
+    padding-right: 5px;
+    word-wrap: break-word;
 }
 
-.yellowBox {
-    height: 50px;
-    width: 50px;
-    border: solid 1px #153A58;
-    background-color: #FFEB00;
-    box-shadow: 1px 1px 2px #2B5171;
-    border-radius: 50%;
+.listP {
+    font-size: 40px
+}
+
+.blackBox {
+    font-size: 48px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 52px;
+    height: 52px;
+    width: 52px;
+    background-color: #a55f41;
+}
+
+.whiteBox {
+    font-size: 48px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 52px;
+    height: 52px;
+    width: 52px;
+    background-color: #fceac6;
 }
 
 h1 {
     padding-top: 20px;
     margin: auto;
     text-align: center;
-    color: whitesmoke
+    color: #a55f41
 }
 
 #buttonLocation {
@@ -64,4 +86,18 @@ h1 {
 
 .lowOpacity {
     opacity: 0.3
+}
+
+.darkText {
+    color: #503434
+}
+
+#capturedForWhite {
+    color: #503434;
+}
+
+h4 {
+    color: #e6b790;
+    padding: 5px;
+    margin: 0px
 }
