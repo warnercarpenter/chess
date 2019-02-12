@@ -1,3 +1,5 @@
+//hello
+
 const whitePawnAvailableMoves = (pawn) => {
     const opposingColor = "black"
     let availableCaptures = []
