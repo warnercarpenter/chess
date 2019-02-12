@@ -61,9 +61,8 @@ const makeBoxes = () => {
 }
 
 const renderBoard = () => {
-
     gameStatus.innerHTML = initTurn[turn]
-    
+
     for (let i = 0; i < 64; i++) {
         document.getElementById(`box ${i}`).innerHTML = ""
     }

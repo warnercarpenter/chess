@@ -132,7 +132,6 @@ const blackPawnAvailableMoves = (pawn) => {
     }
 }
 
-
 const rookAvailableMoves = (rook) => {
     let opposingColor = ""
     let opposingColorArray = []
@@ -156,8 +155,8 @@ const rookAvailableMoves = (rook) => {
     const movesLeft = currentRowArray.reverse().slice((currentRowArray.indexOf(startingLocation)) + 1)
     let availableMoves = []
 
-    const lowOpacity = (availableMovesForward, availableCaptures, currentSpace) => {
-        const availableMoves = availableMovesForward.concat(availableCaptures)
+    const lowOpacity = (availableMoves, availableCaptures, currentSpace) => {
+        const availableMoves = availableMoves.concat(availableCaptures)
             for (let i = 0; i < 64; i++) {
                 if (availableMoves.includes(i) === false && i != currentSpace) {
                     document.getElementById(`box ${i}`).classList.add("lowOpacity")
@@ -228,6 +227,92 @@ const rookAvailableMoves = (rook) => {
     }
 }
 
+const bishopAvailableMoves = (bishop) => {
+    let opposingColor = ""
+    let opposingColorArray = []
+    if (bishop.color === "white") {
+        opposingColor = "black"
+        opposingColorArray = blackPiecesArray
+    }
+    if (bishop.color === "black") {
+        opposingColor = "white"
+        opposingColorArray = whitePiecesArray
+    }
+    let availableCaptures = []
+    const startingLocation = bishop.current_space
+    const currentColumn = columns.find(a => a.boxes.includes(startingLocation))
+    const currentRow = rows.find(a => a.boxes.includes(startingLocation))
+    const currentDiagonalOne = diagonals.diagonalOne.find(a => a.includes(startingLocation))
+    const currentDiagonalOneArray = currentDiagonalOne.slice(0)
+    const currentDiagonalTwo = diagonals.diagonalTwo.find(a => a.includes(startingLocation))
+    const currentDiagonalTwoArray = currentDiagonalTwo.slice(0)
+    const movesDiagonalOne = currentDiagonalOneArray.slice((currentDiagonalOneArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalTwo = currentDiagonalTwoArray.slice((currentDiagonalTwoArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalThree = currentDiagonalOneArray.reverse().slice((currentDiagonalOneArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalFour = currentDiagonalTwoArray.reverse().slice((currentDiagonalTwoArray.indexOf(startingLocation)) + 1)
+    let availableMoves = []
+
+    const lowOpacity = (availableMoves, availableCaptures, currentSpace) => {
+        const availableMoves = availableMoves.concat(availableCaptures)
+            for (let i = 0; i < 64; i++) {
+                if (availableMoves.includes(i) === false && i != currentSpace) {
+                    document.getElementById(`box ${i}`).classList.add("lowOpacity")
+                }
+            }
+    }
+
+    const getAvailableMoves = (direction) => {
+        let thingToCheck = ""
+        if (direction === "diagonalOne") {
+            thingToCheck = movesDiagonalOne
+        }
+        if (direction === "diagonalTwo") {
+            thingToCheck = movesDiagonalTwo
+        }
+        if (direction === "diagonalThree") {
+            thingToCheck = movesDiagonalThree
+        }
+        if (direction === "diagonalFour") {
+            thingToCheck = movesDiagonalFour
+        }
+   
+        for (let index = 0; index < thingToCheck.length; index++) {
+            const currentSpace = thingToCheck[index];
+            if (document.getElementById(`box ${currentSpace}`).innerHTML === "") {
+                availableMoves.push(currentSpace)
+            }
+            if (document.getElementById(`box ${currentSpace}`).innerHTML != "") {
+                if (opposingColorArray.includes(document.getElementById(`box ${currentSpace}`).innerHTML)) {
+                    availableCaptures.push(currentSpace)
+                }
+                break
+            }
+        }
+    }
+
+    if (currentColumn.name != 8 || currentRow.name != "A") {
+        getAvailableMoves("diagonalOne")
+    }
+
+    if (currentColumn.name != 1 || currentRow.name != "A") {
+        getAvailableMoves("diagonalTwo")
+    }
+
+    if (currentColumn.name != 1 || currentRow.name != "H") {
+        getAvailableMoves("diagonalThree")
+    }
+
+    if (currentColumn.name != 8 || currentRow.name != "H") {
+        getAvailableMoves("diagonalFour")
+    }
+
+
+    if (availableMoves.length != 0 || availableCaptures.length != 0) {
+        lowOpacity(availableMoves, availableCaptures, bishop.current_space)
+        movePiece(bishop, availableMoves, availableCaptures, opposingColor)
+    }
+}
+
 const queenAvailableMoves = (queen) => {
     let opposingColor = ""
     let opposingColorArray = []
@@ -259,8 +344,8 @@ const queenAvailableMoves = (queen) => {
     const movesDiagonalFour = currentDiagonalTwoArray.reverse().slice((currentDiagonalTwoArray.indexOf(startingLocation)) + 1)
     let availableMoves = []
 
-    const lowOpacity = (availableMovesForward, availableCaptures, currentSpace) => {
-        const availableMoves = availableMovesForward.concat(availableCaptures)
+    const lowOpacity = (availableMoves, availableCaptures, currentSpace) => {
+        const availableMoves = availableMoves.concat(availableCaptures)
             for (let i = 0; i < 64; i++) {
                 if (availableMoves.includes(i) === false && i != currentSpace) {
                     document.getElementById(`box ${i}`).classList.add("lowOpacity")

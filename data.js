@@ -245,7 +245,7 @@ const pieces = {
         {
             piece_type: "bishop",
             name: "whiteBishopOne",
-            current_space: 58,
+            current_space: 35,
             alive: true,
             color: "white",
             character: "♗",
@@ -261,7 +261,7 @@ const pieces = {
         {
             piece_type: "queen",
             name: "whiteQueen",
-            current_space: 35,
+            current_space: 59,
             alive: true,
             color: "white",
             character: "♔",
