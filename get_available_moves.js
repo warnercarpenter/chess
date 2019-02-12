@@ -133,7 +133,7 @@ const blackPawnAvailableMoves = (pawn) => {
 }
 
 
-const whiteRookAvailableMoves = (rook) => {
+const rookAvailableMoves = (rook) => {
     let opposingColor = ""
     let opposingColorArray = []
     if (rook.color === "white") {
@@ -154,6 +154,7 @@ const whiteRookAvailableMoves = (rook) => {
     const movesForward = currentColumnArray.reverse().slice((currentColumnArray.indexOf(startingLocation)) + 1)
     const movesRight = currentRowArray.slice((currentRowArray.indexOf(startingLocation)) + 1)
     const movesLeft = currentRowArray.reverse().slice((currentRowArray.indexOf(startingLocation)) + 1)
+    let availableMoves = []
 
     const lowOpacity = (availableMovesForward, availableCaptures, currentSpace) => {
         const availableMoves = availableMovesForward.concat(availableCaptures)
@@ -164,58 +165,186 @@ const whiteRookAvailableMoves = (rook) => {
             }
     }
 
-    const checkBackwardCapture = () => {
-        const spaceToCheck = currentDiagonalOne.slice(currentDiagonalOne.indexOf(startingLocation) + 1, currentDiagonalOne.indexOf(startingLocation) + 2)[0]
-        if (opposingColorArray.includes(document.getElementById(`box ${spaceToCheck}`).innerHTML)) {
-            availableCaptures.push(spaceToCheck)
+    const getAvailableMoves = (direction) => {
+        let thingToCheck = ""
+        if (direction === "backward") {
+            thingToCheck = movesBackward
         }
-    }
-
-    const checkDiagonalTwoCapture = () => {
-        const spaceToCheck = currentDiagonalTwo.slice(currentDiagonalTwo.indexOf(startingLocation) + 1, currentDiagonalTwo.indexOf(startingLocation) + 2)[0]
-        if (opposingColorArray.includes(document.getElementById(`box ${spaceToCheck}`).innerHTML)) {
-            availableCaptures.push(spaceToCheck)
+        if (direction === "forward") {
+            thingToCheck = movesForward
+        }
+        if (direction === "right") {
+            thingToCheck = movesRight
+        }
+        if (direction === "left") {
+            thingToCheck = movesLeft
+        }
+        if (direction === "diagonalOne") {
+            thingToCheck = movesDiagonalOne
+        }
+        if (direction === "diagonalTwo") {
+            thingToCheck = movesDiagonalTwo
+        }
+        if (direction === "diagonalThree") {
+            thingToCheck = movesDiagonalThree
+        }
+        if (direction === "diagonalFour") {
+            thingToCheck = movesDiagonalFour
+        }
+   
+        for (let index = 0; index < thingToCheck.length; index++) {
+            const currentSpace = thingToCheck[index];
+            if (document.getElementById(`box ${currentSpace}`).innerHTML === "") {
+                availableMoves.push(currentSpace)
+            }
+            if (document.getElementById(`box ${currentSpace}`).innerHTML != "") {
+                if (opposingColorArray.includes(document.getElementById(`box ${currentSpace}`).innerHTML)) {
+                    availableCaptures.push(currentSpace)
+                }
+                break
+            }
         }
     }
 
     if (currentRow.name != "H") {
-        checkBackwardCapture()
+        getAvailableMoves("backward")
     }
-    
+
     if (currentRow.name != "A") {
-        checkForwardCapture()
+        getAvailableMoves("forward")
     }
 
     if (currentColumn.name != 8) {
-        checkRightCapture()
+        getAvailableMoves("right")
     }
 
     if (currentColumn.name != 1) {
-        checkLeftCapture()
+        getAvailableMoves("left")
     }
 
-    if (rook.first_move === true) {
-        availableMovesForward = movesForward.slice(0, 2)
-        if (document.getElementById(`box ${availableMovesForward[1]}`).innerHTML != "") {
-            availableMovesForward = [availableMovesForward[0]]
+    if (availableMoves.length != 0 || availableCaptures.length != 0) {
+        lowOpacity(availableMoves, availableCaptures, rook.current_space)
+        movePiece(rook, availableMoves, availableCaptures, opposingColor)
+    }
+}
+
+const queenAvailableMoves = (queen) => {
+    let opposingColor = ""
+    let opposingColorArray = []
+    if (queen.color === "white") {
+        opposingColor = "black"
+        opposingColorArray = blackPiecesArray
+    }
+    if (queen.color === "black") {
+        opposingColor = "white"
+        opposingColorArray = whitePiecesArray
+    }
+    let availableCaptures = []
+    const startingLocation = queen.current_space
+    const currentColumn = columns.find(a => a.boxes.includes(startingLocation))
+    const currentColumnArray = currentColumn.boxes.slice(0)
+    const currentRow = rows.find(a => a.boxes.includes(startingLocation))
+    const currentRowArray = currentRow.boxes.slice(0)
+    const currentDiagonalOne = diagonals.diagonalOne.find(a => a.includes(startingLocation))
+    const currentDiagonalOneArray = currentDiagonalOne.slice(0)
+    const currentDiagonalTwo = diagonals.diagonalTwo.find(a => a.includes(startingLocation))
+    const currentDiagonalTwoArray = currentDiagonalTwo.slice(0)
+    const movesBackward = currentColumnArray.slice((currentColumnArray.indexOf(startingLocation)) + 1)
+    const movesForward = currentColumnArray.reverse().slice((currentColumnArray.indexOf(startingLocation)) + 1)
+    const movesRight = currentRowArray.slice((currentRowArray.indexOf(startingLocation)) + 1)
+    const movesLeft = currentRowArray.reverse().slice((currentRowArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalOne = currentDiagonalOneArray.slice((currentDiagonalOneArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalTwo = currentDiagonalTwoArray.slice((currentDiagonalTwoArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalThree = currentDiagonalOneArray.reverse().slice((currentDiagonalOneArray.indexOf(startingLocation)) + 1)
+    const movesDiagonalFour = currentDiagonalTwoArray.reverse().slice((currentDiagonalTwoArray.indexOf(startingLocation)) + 1)
+    let availableMoves = []
+
+    const lowOpacity = (availableMovesForward, availableCaptures, currentSpace) => {
+        const availableMoves = availableMovesForward.concat(availableCaptures)
+            for (let i = 0; i < 64; i++) {
+                if (availableMoves.includes(i) === false && i != currentSpace) {
+                    document.getElementById(`box ${i}`).classList.add("lowOpacity")
+                }
+            }
+    }
+
+    const getAvailableMoves = (direction) => {
+        let thingToCheck = ""
+        if (direction === "backward") {
+            thingToCheck = movesBackward
         }
-        if (document.getElementById(`box ${availableMovesForward[0]}`).innerHTML != "") {
-            availableMovesForward = availableMovesForward = []
+        if (direction === "forward") {
+            thingToCheck = movesForward
         }
-        if (availableMovesForward.length != 0 || availableCaptures.length != 0) {
-            lowOpacity(availableMovesForward, availableCaptures, rook.current_space)
-            movePiece(rook, availableMovesForward, availableCaptures, opposingColor)
+        if (direction === "right") {
+            thingToCheck = movesRight
+        }
+        if (direction === "left") {
+            thingToCheck = movesLeft
+        }
+        if (direction === "diagonalOne") {
+            thingToCheck = movesDiagonalOne
+        }
+        if (direction === "diagonalTwo") {
+            thingToCheck = movesDiagonalTwo
+        }
+        if (direction === "diagonalThree") {
+            thingToCheck = movesDiagonalThree
+        }
+        if (direction === "diagonalFour") {
+            thingToCheck = movesDiagonalFour
+        }
+   
+        for (let index = 0; index < thingToCheck.length; index++) {
+            const currentSpace = thingToCheck[index];
+            if (document.getElementById(`box ${currentSpace}`).innerHTML === "") {
+                availableMoves.push(currentSpace)
+            }
+            if (document.getElementById(`box ${currentSpace}`).innerHTML != "") {
+                if (opposingColorArray.includes(document.getElementById(`box ${currentSpace}`).innerHTML)) {
+                    availableCaptures.push(currentSpace)
+                }
+                break
+            }
         }
     }
-    if (rook.first_move === false) {
-        availableMovesForward = movesForward.slice(0, 1)
-        if (document.getElementById(`box ${availableMovesForward[0]}`).innerHTML != "") {
-            availableMovesForward = []
-        }
-        if (availableMovesForward.length != 0 || availableCaptures.length != 0) {
-            lowOpacity(availableMovesForward, availableCaptures, rook.current_space)
-            movePiece(rook, availableMovesForward, availableCaptures, opposingColor)
-        }
+
+    if (currentRow.name != "H") {
+        getAvailableMoves("backward")
+    }
+
+    if (currentRow.name != "A") {
+        getAvailableMoves("forward")
+    }
+
+    if (currentColumn.name != 8) {
+        getAvailableMoves("right")
+    }
+
+    if (currentColumn.name != 1) {
+        getAvailableMoves("left")
+    }
+
+    if (currentColumn.name != 8 || currentRow.name != "A") {
+        getAvailableMoves("diagonalOne")
+    }
+
+    if (currentColumn.name != 1 || currentRow.name != "A") {
+        getAvailableMoves("diagonalTwo")
+    }
+
+    if (currentColumn.name != 1 || currentRow.name != "H") {
+        getAvailableMoves("diagonalThree")
+    }
+
+    if (currentColumn.name != 8 || currentRow.name != "H") {
+        getAvailableMoves("diagonalFour")
+    }
+
+
+    if (availableMoves.length != 0 || availableCaptures.length != 0) {
+        lowOpacity(availableMoves, availableCaptures, queen.current_space)
+        movePiece(queen, availableMoves, availableCaptures, opposingColor)
     }
 }
 
@@ -231,12 +360,7 @@ const getAvailableMoves = (color, boxClicked) => {
         }
     }
     if (pieceToCheck.piece_type === "rook") {
-        if (pieceToCheck.color === "white") {
-            whiteRookAvailableMoves(pieceToCheck)
-        }
-        if (pieceToCheck.color === "black") {
-            blackRookAvailableMoves(pieceToCheck)
-        }
+        rookAvailableMoves(pieceToCheck)
     }
     if (pieceToCheck.piece_type === "knight") {
         knightAvailableMoves(pieceToCheck)

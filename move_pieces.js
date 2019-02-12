@@ -12,9 +12,9 @@ const capturePiece = (currentPiece, move, opposingColor) => {
     pieces[`${opposingColor}_pieces`].find(a => a.current_space === move).current_space = ""
 }
 
-const movePiece = (piece, availableMovesForward, availableCaptures, opposingColor) => {
+const movePiece = (piece, availableMoves, availableCaptures, opposingColor) => {
     const pieceInnerFunction = () => {
-        if (availableMovesForward.includes(parseInt(event.target.id.split(" ")[1])) || availableCaptures.includes(parseInt(event.target.id.split(" ")[1]))) {
+        if (availableMoves.includes(parseInt(event.target.id.split(" ")[1])) || availableCaptures.includes(parseInt(event.target.id.split(" ")[1]))) {
             const move = parseInt(event.target.id.split(" ")[1])
             piece.current_space = move
             if (availableCaptures.includes(move)) {
@@ -29,7 +29,7 @@ const movePiece = (piece, availableMovesForward, availableCaptures, opposingColo
             } else {
                 turn = 0
             }
-            
+
             renderBoard()
             board.removeEventListener("click", pieceInnerFunction)
             initGame()

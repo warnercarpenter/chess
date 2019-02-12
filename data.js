@@ -261,7 +261,7 @@ const pieces = {
         {
             piece_type: "queen",
             name: "whiteQueen",
-            current_space: 59,
+            current_space: 35,
             alive: true,
             color: "white",
             character: "♔",
